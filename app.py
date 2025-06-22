@@ -77,7 +77,7 @@ def ai_search(
     price_hour_min: Optional[int] = None,
     price_hour_max: Optional[int] = None,
     facilities: Optional[List[str]] = Query(None),
-    payment_methods: Optional[List[str]] = Query(None),
+    payment_method: Optional[List[str]] = Query(None),
     payment_due: Optional[str] = None,
     people_min: Optional[int] = None,
     people_max: Optional[int] = None,
@@ -114,8 +114,8 @@ def ai_search(
             for facility in facilities:
                 filters.append(f"facilities/{facility} eq true")
 
-        if payment_methods:
-            payment_filters = [f"payment_methods/any(p: p eq '{method}')" for method in payment_methods]
+        if payment_method:
+            payment_filters = [f"payment_method eq '{method}'" for method in payment_method]
             filters.append(f"({' or '.join(payment_filters)})")
 
         if payment_due:
